@@ -43,3 +43,29 @@ pairs(meuse)
 # question 
 # pairing only the elements part of the dataset: how to do that?
 # only with cadmium, copper, lead, zinc..
+
+#########
+
+# lecture #2 on ecological variables
+
+# exercise
+# recall the package sp, recall the dataset meuse
+
+head(meuse)
+
+# cadmium copper lead zinc
+# pairs with soil variables
+# from column 3 to column 6
+pairs(meuse[,3:6])
+
+# let's use the names of the columns
+pairs(~ cadmium + copper + lead + zinc, data=meuse)
+#in mac tilde is alt + 5 
+
+# let's prettify the graph
+# exercise: change the colour 
+pairs(~ cadmium + copper + lead + zinc, data=meuse, col="red")
+
+# exercise
+# change symbol triangles: pch, increase the size of the triangles cex=3
+pairs(~ cadmium + copper + lead + zinc, data=meuse, col="red", pch=17, cex=3)
