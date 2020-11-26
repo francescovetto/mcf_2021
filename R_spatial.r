@@ -77,3 +77,13 @@ setwd("/Users/francescovettore/Desktop/lab")
 covid <- read.table("covid_agg.csv", header=TRUE)
 
 # header=TRUE means that each variable has a name
+
+summary(covid)
+
+# ggplot2
+library(ggplot2)
+ggplot(covid, aes(x = lon, y = lat)) + geom_point()
+
+# changing the size of the data
+ggplot(covid, aes(x = lon, y = lat, size = cases)) + geom_point()
+
