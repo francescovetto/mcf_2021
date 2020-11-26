@@ -6,7 +6,7 @@ library(spatstat)
 ##### IMPORT DATA FROM AN EXTERNAL SOURCE
 
 # SETWD MAC
-# setwd("/Users/yourname/lab//")
+# 
 
 covid <- read.table("covid_agg.csv", header = TRUE) 
 covid
