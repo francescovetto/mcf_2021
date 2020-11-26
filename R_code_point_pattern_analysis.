@@ -33,3 +33,4 @@ points(covid_planar)
 
 # putting the countries on top of the map
 install.packages("rgdal")
+
