@@ -62,4 +62,19 @@ plot(cases_map, col = cl)
 points(covid_planar, pch = 19, cex = 0.1)
 plot(coastlines, add = T)
 
+########
 
+setwd("/Users/francescovettore/Desktop/lab")
+
+library(spatstat)
+library(rgdal)
+
+covid <- read.table("covid_agg.csv", header = TRUE)
+
+head(covid)
+attach(covid)
+
+covid_planar <- ppp(lon, lat, c(-180, 180), c(-90, 90))
+
+marks(covid_planar) <- cases
+cases_map <- Smooth(covid_planar)
