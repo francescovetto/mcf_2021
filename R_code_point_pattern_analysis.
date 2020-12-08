@@ -85,3 +85,18 @@ cl <- colorRampPalette(c('pink','green','orange','red','magenta'))(100)
 
 leo <- read.table("dati_zabotti.csv", header=T, sep=",")
 leo
+
+attach(leo)
+
+library(spatstat)
+summary(leo)
+
+leo_ppp <- ppp(x, y, c(2300000, 2325000), c(50050000, 50450000))
+
+plot(leo_ppp)
+leo_ppp
+
+density_map <- density(leo_ppp)
+plot(density_map)
+points(leo_ppp)
+
