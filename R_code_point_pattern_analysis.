@@ -91,7 +91,7 @@ attach(leo)
 library(spatstat)
 summary(leo)
 
-leo_ppp <- ppp(x, y, c(2300000, 2325000), c(50050000, 50450000))
+leo_ppp <- ppp(x, y, c(2300000, 2325000), c(5005000, 5045000))
 
 plot(leo_ppp)
 leo_ppp
