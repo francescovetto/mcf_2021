@@ -5,7 +5,7 @@
 library(raster)
 library(RStoolbox)
 
-
+# band color standard for landsat band 1 blu, band 2 green, band 3 red, band 4 nir
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 plot(p224r63_2011)
 par(mfrow=c(2,2)) 
