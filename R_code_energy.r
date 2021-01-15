@@ -3,4 +3,6 @@ install.packages("rasterdiv")
 library(rasterdiv)
 library(raster)
 
+data(copNDVI)
+plot(conNDVI)
 
