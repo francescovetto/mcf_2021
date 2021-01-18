@@ -40,3 +40,11 @@ dev.off()
 italy_ext <- c(0,20,35,55)
 copNDVI_Italy <- crop(copNDVI, italy_ext)
 plot(copNDVI_Italy, col=clymax)
+
+########## deforestation example
+library(raster)
+library(RStoolbox)
+
+
+
+defor1 <- brick("defor1_.jpg")  #defor1_.png
