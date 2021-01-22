@@ -1,4 +1,6 @@
 # R code for the exam 
+## put in github the code of the exam, with several comments but also every code of the course 
+
 
 # nc data: we need library to read it ncdf4
 # https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
