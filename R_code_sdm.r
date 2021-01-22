@@ -48,4 +48,36 @@ points(species[species$Occurrence == 1,],pch=17)
 datasdm <- sdmData(train=species, predictors=preds)
 datasdm
 
-m1 <- sdm(Occurrence )
+# model
+m1 <- sdm(Occurrence ~ elevation + precipitation + temperature 
++ vegetation, data=datasdm, methods = "glm")
+m1
+
+# make the raster output layer 
+p1 <- predict(m1,newdata=preds)
+plot(p1, col=cl)
+points(species[species$Occurrence == 1,],pch=17)
+
+# probability of distribution of the species 
+
+# add to the stack 
+s1 <- stack(preds,p1)
+plot(s1, col=cl, main='probability')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
