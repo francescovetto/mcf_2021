@@ -62,7 +62,7 @@ points(species[species$Occurrence == 1,],pch=17)
 
 # add to the stack 
 s1 <- stack(preds,p1)
-plot(s1, col=cl, main='probability')
+plot(s1, col=cl)
 
 
 
