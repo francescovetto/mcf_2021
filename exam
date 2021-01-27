@@ -16,3 +16,7 @@ ggplot() +
   ggtitle("fire location") + 
   coord_sf()
   
+fcover_sep <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
+# set extension
+
+plot(fcover_sep)
