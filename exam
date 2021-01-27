@@ -9,6 +9,8 @@ setwd("/Users/francescovettore/Desktop/lab.exam")
 fire <- st_read("fire_archive_V1_177480.shp")
 fire
 
+st_geometry_type(fire)
+
 ggplot() + 
   geom_sf(data = fire, size = 3, color = "black", fill = "cyan1") + 
   ggtitle("fire location") + 
@@ -16,4 +18,3 @@ ggplot() +
 
 # set the extent
 
-plot(sep1)
