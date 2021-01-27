@@ -12,9 +12,7 @@ fire
 st_geometry_type(fire)
 
 ggplot() + 
-  geom_sf(data = fire, size = 3, color = "black", fill = "cyan1") + 
+  geom_sf(data = fire, size = 0.01, color = "red") + 
   ggtitle("fire location") + 
   coord_sf()
-
-# set the extent
-
+  
