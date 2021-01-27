@@ -2,19 +2,17 @@
 
 library(ncdf4)
 library(raster)
+library(sf)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
-burnt_sep <- raster("c_gls_BA300_201909100000_GLOBE_PROBAV_V1.1.1.nc")
-ndvi_sep <- raster("c_gls_NDVI300_201909010000_GLOBE_PROBAV_V1.0.1.nc")
-oct1 <- raster("c_gls_BA300_201910100000_GLOBE_PROBAV_V1.1.1.nc")
-oct21 <- raster("c_gls_BA300_201910310000_GLOBE_PROBAV_V1.1.1.nc")
-nov1 <- raster("c_gls_BA300_201911100000_GLOBE_PROBAV_V1.1.1.nc")
-nov21 <- raster("c_gls_BA300_201911300000_GLOBE_PROBAV_V1.1.1.nc")
-dec1 <- raster("c_gls_BA300_201912100000_GLOBE_PROBAV_V1.1.1.nc")
-dec21 <- raster("c_gls_BA300_201912310000_GLOBE_PROBAV_V1.1.1.nc")
-jan1 <- raster("c_gls_BA300_202001100000_GLOBE_PROBAV_V1.1.1.nc")
-jan21 <- raster("c_gls_BA300_202001310000_GLOBE_PROBAV_V1.1.1.nc")
+fire <- st_read("fire_archive_V1_177480.shp")
+fire
+
+ggplot() + 
+  geom_sf(data = fire, size = 3, color = "black", fill = "cyan1") + 
+  ggtitle("fire location") + 
+  coord_sf()
 
 # set the extent
 
