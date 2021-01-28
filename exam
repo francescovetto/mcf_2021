@@ -18,5 +18,12 @@ ggplot() +
   
 fcover_sep <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
 
-# set plot extension
+# change extent zoom to australia
+australia (112.9072, 158.9603, -54.7538, -10.1356)(xmin, xmax, ymin, ymax)
+
+bb <- extent(112.9072, 158.9603, -54.7538, -10.1356)
+extent(fcover_sep) <- bb
+fcover_sep <- setExtent(fcover_sep, bb, keepres=TRUE)
+
+fcover_sep <- crop(x = fcover_sep, y = fcover_sep)
 plot(fcover_sep, axes=TRUE, ext = extent(fcover_sep))
