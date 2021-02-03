@@ -63,6 +63,9 @@ ndvi_nov <- raster("c_gls_NDVI300_201911010000_GLOBE_PROBAV_V1.0.1.nc")
 ndvi_dec <- raster("c_gls_NDVI300_201912010000_GLOBE_PROBAV_V1.0.1.nc")
 ndvi_jan <- raster("c_gls_NDVI300_202001010000_GLOBE_PROBAV_V1.0.1.nc")
 
+# reclassify the raster, to eliminate bands 253:255
+ndvi_oct <- reclassify(ndvi_oct, cbind(253:255, NA))
+
 polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 NDVI_oct <- crop(ndvi_oct, polygon)
