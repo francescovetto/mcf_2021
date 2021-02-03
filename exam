@@ -3,27 +3,80 @@
 library(ncdf4)
 library(raster)
 library(sf)
+library(rgdal)
+library(ggplot2)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
+# fire location, FIRMS data suomi-viirs-c2 downloaded from the NASA website 
+# NASA FIRMS distributes Near Real-Time (NRT) active fire data within 3 hours of satellite observation from VIIRS
 fire <- st_read("fire_archive_V1_177480.shp")
 fire
 
-st_geometry_type(fire)
+coastlines <- readOGR("ne_10m_coastline.shp")
+# crop to the aussie coastlines
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+aussie_coastlines <- crop(coastlines, polygon)
 
 ggplot() + 
   geom_sf(data = fire, size = 0.01, color = "red") + 
   ggtitle("fire location") + 
   coord_sf()
-  
-fcover_sep <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
+# export the picture with the fire location
 
-# change extent zoom to australia
-australia (112.9072, 158.9603, -54.7538, -10.1356)(xmin, xmax, ymin, ymax)
+# import all the raster about forest cover from october to january
+oct <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
+nov <- raster("c_gls_FCOVER_201911230000_GLOBE_PROBAV_V1.5.1.nc")
+dec <- raster("c_gls_FCOVER_201912240000_GLOBE_PROBAV_V1.5.1.nc")
+jan <- raster("c_gls_FCOVER_202001240000_GLOBE_PROBAV_V1.5.1.nc")
 
-bb <- extent(112.9072, 158.9603, -54.7538, -10.1356)
-extent(fcover_sep) <- bb
-fcover_sep <- setExtent(fcover_sep, bb, keepres=TRUE)
+# change extent zoom to australia, creatung a box as a Spatial object and crop the raster by the box.
+# australia (112.9072, 158.9603, -54.7538, -10.1356)(xmin, xmax, ymin, ymax)
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+fcover_oct <- crop(oct, polygon)
 
-fcover_sep <- crop(x = fcover_sep, y = fcover_sep)
-plot(fcover_sep, axes=TRUE, ext = extent(fcover_sep))
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+fcover_nov <- crop(nov, polygon)
+
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+fcover_dec <- crop(dec, polygon)
+
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+fcover_jan <- crop(jan, polygon)
+
+# plot the 4 raster with the function par, with color cl
+cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
+par(mfrow=c(2,2))
+plot(fcover_oct, main="fcover_oct", col=cl)
+plot(fcover_nov, main="fcover_nov", col=cl)
+plot(fcover_dec, main="fcover_dec", col=cl)
+plot(fcover_jan, main="fcover_jan", col=cl)
+
+# import NDVI data 
+ndvi_oct <- raster("c_gls_NDVI300_201910010000_GLOBE_PROBAV_V1.0.1.nc")
+ndvi_nov <- raster("c_gls_NDVI300_201911010000_GLOBE_PROBAV_V1.0.1.nc")
+ndvi_dec <- raster("c_gls_NDVI300_201912010000_GLOBE_PROBAV_V1.0.1.nc")
+ndvi_jan <- raster("c_gls_NDVI300_202001010000_GLOBE_PROBAV_V1.0.1.nc")
+
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+NDVI_oct <- crop(ndvi_oct, polygon)
+NDVI_nov <- crop(ndvi_nov, polygon)
+NDVI_dec <- crop(ndvi_dec, polygon)
+NDVI_jan <- crop(ndvi_jan, polygon)
+
+par(mfrow=c(2,2))
+plot(NDVI_oct, main="NDVI_oct")
+plot(NDVI_nov, main="NDVI_nov")
+plot(NDVI_dec, main="NDVI_dec")
+plot(NDVI_jan, main="NDVI_jan")
+
+
+
+
+
