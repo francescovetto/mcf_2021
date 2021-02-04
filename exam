@@ -5,6 +5,7 @@ library(raster)
 library(sf)
 library(rgdal)
 library(ggplot2)
+library(tiff)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
@@ -58,26 +59,15 @@ plot(fcover_dec, main="fcover_dec", col=cl)
 plot(fcover_jan, main="fcover_jan", col=cl)
 
 # import NDVI data 
-ndvi_oct <- raster("c_gls_NDVI300_201910010000_GLOBE_PROBAV_V1.0.1.nc")
-ndvi_nov <- raster("c_gls_NDVI300_201911010000_GLOBE_PROBAV_V1.0.1.nc")
-ndvi_dec <- raster("c_gls_NDVI300_201912010000_GLOBE_PROBAV_V1.0.1.nc")
-ndvi_jan <- raster("c_gls_NDVI300_202001010000_GLOBE_PROBAV_V1.0.1.nc")
+ndvi_oct <- raster("c_gls_NDVI300-NDVI_201910010000_CUSTOM_PROBAV_V1.0.1.tiff")
+ndvi_nov <- raster("c_gls_NDVI300-NDVI_201911010000_CUSTOM_PROBAV_V1.0.1.tiff")
+ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1.tiff")
+ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1.tiff")
+ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1.tiff")
 
-# reclassify the raster, to eliminate bands 253:255
-ndvi_oct <- reclassify(ndvi_oct, cbind(253:255, NA))
+ndvi_OCT <- reclassify(ndvi_oct, cbind(253:255, NA))
 
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
-crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
-NDVI_oct <- crop(ndvi_oct, polygon)
-NDVI_nov <- crop(ndvi_nov, polygon)
-NDVI_dec <- crop(ndvi_dec, polygon)
-NDVI_jan <- crop(ndvi_jan, polygon)
 
-par(mfrow=c(2,2))
-plot(NDVI_oct, main="NDVI_oct")
-plot(NDVI_nov, main="NDVI_nov")
-plot(NDVI_dec, main="NDVI_dec")
-plot(NDVI_jan, main="NDVI_jan")
 
 
 
