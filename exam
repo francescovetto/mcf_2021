@@ -13,12 +13,6 @@ setwd("/Users/francescovettore/Desktop/lab.exam")
 fire <- st_read("fire_archive_V1_177480.shp")
 fire
 
-coastlines <- readOGR("ne_10m_coastline.shp")
-# crop to the aussie coastlines
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
-crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
-aussie_coastlines <- crop(coastlines, polygon)
-
 ggplot() + 
   geom_sf(data = fire, size = 0.01, color = "red") + 
   ggtitle("fire location") + 
@@ -36,17 +30,8 @@ jan <- raster("c_gls_FCOVER_202001240000_GLOBE_PROBAV_V1.5.1.nc")
 polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 fcover_oct <- crop(oct, polygon)
-
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
-crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 fcover_nov <- crop(nov, polygon)
-
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
-crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 fcover_dec <- crop(dec, polygon)
-
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
-crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 fcover_jan <- crop(jan, polygon)
 
 # plot the 4 raster with the function par, with color cl
@@ -56,6 +41,7 @@ plot(fcover_oct, main="fcover_oct", col=cl)
 plot(fcover_nov, main="fcover_nov", col=cl)
 plot(fcover_dec, main="fcover_dec", col=cl)
 plot(fcover_jan, main="fcover_jan", col=cl)
+# export picture 
 
 # import NDVI data, from october 19 to february 20, then also february 19 to make a comparison between feb 19- feb 20 
 ndvi_oct <- raster("c_gls_NDVI300-NDVI_201910010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
@@ -79,11 +65,16 @@ ndvi_jan [ndvi_jan[]>=0.935] <- NA
 ndvi_feb [ndvi_feb[]>=0.935] <- NA
 ndvi_feb19 [ndvi_feb19[]>=0.935] <- NA
 
-# i'm going to calculate the ndvi difference between the start of the fire season (october 19) 
-# and the end (february 20), then i will do a comparison between the ndvi in feb '19 and feb '20
+cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
+par(mfrow=c(2,2))
+plot(ndvi_oct, col=cl)
+plot(ndvi_nov, col=cl)
+plot(ndvi_dec, col=cl)
+plot(ndvi_jan, col=cl)
 
-
-
+# i will do a comparison between the ndvi in feb '19 and feb '20
+ndvi_diff <- ndvi_feb19 - ndvi_feb
+ndvi_diff
 
 
 
