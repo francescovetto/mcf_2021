@@ -5,7 +5,6 @@ library(raster)
 library(sf)
 library(rgdal)
 library(ggplot2)
-library(tiff)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
@@ -65,7 +64,7 @@ ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1.tiff")
 ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1.tiff")
 ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1.tiff")
 
-ndvi_OCT <- reclassify(ndvi_oct, cbind(253:255, NA))
+ndvi_oct[]
 
 
 
