@@ -75,7 +75,7 @@ plot(ndvi_jan, col=cl)
 # i will do a comparison between the ndvi in feb '19 and feb '20
 ndvi_diff <- ndvi_feb19 - ndvi_feb
 ndvi_diff
-
+# export picture 
 
 
 
