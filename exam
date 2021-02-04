@@ -68,7 +68,8 @@ polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 ndvi_OCT <- crop(ndvi_oct, polygon)
 
-ndvi_oct [ndvi_oct[]>=253] <- NA
+ndvi_oct [ndvi_oct[]>=253] <- NA # doesn't work
+ndvi_oct <- reclassify(ndvi_oct, cbind(253:255, NA)) # doesn't work
 
 
 
