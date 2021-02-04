@@ -58,16 +58,31 @@ plot(fcover_dec, main="fcover_dec", col=cl)
 plot(fcover_jan, main="fcover_jan", col=cl)
 
 # import NDVI data 
-ndvi_oct <- raster("c_gls_NDVI300-NDVI_201910010000_CUSTOM_PROBAV_V1.0.1.tiff")
-ndvi_nov <- raster("c_gls_NDVI300-NDVI_201911010000_CUSTOM_PROBAV_V1.0.1.tiff")
-ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1.tiff")
-ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1.tiff")
-ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1.tiff")
+ndvi_oct <- raster("c_gls_NDVI300-NDVI_201910010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+ndvi_nov <- raster("c_gls_NDVI300-NDVI_201911010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+ndvi_feb19 <- raster("c_gls_NDVI300-NDVI_201902010000_CUSTOM_PROBAV_V1.0.1.tiff")
+
+# ndvi values fro 
+ndvi_oct [ndvi_oct[]>=253] <- NA
+ndvi_nov [ndvi_nov[]>=253] <- NA
+ndvi_dec [ndvi_dec[]>=253] <- NA
+ndvi_jan [ndvi_jan[]>=253] <- NA
+ndvi_feb [ndvi_feb[]>=253] <- NA
+ndvi_feb19 [ndvi_feb19[]>=253] <- NA
+ndvi_oct [ndvi_oct[]>=0.935] <- NA
+ndvi_nov [ndvi_nov[]>=0.935] <- NA
+ndvi_dec [ndvi_dec[]>=0.935] <- NA
+ndvi_jan [ndvi_jan[]>=0.935] <- NA
+ndvi_feb [ndvi_feb[]>=0.935] <- NA
+ndvi_feb19 [ndvi_feb19[]>=0.935] <- NA
 
 
+plot(ndvi_oct)
 
-ndvi_oct [ndvi_oct[]>=253] <- NA # doesn't work
-ndvi_oct <- reclassify(ndvi_oct, cbind(253:255, NA)) # doesn't work
+
 
 
 
