@@ -64,7 +64,11 @@ ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1.tiff")
 ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1.tiff")
 ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1.tiff")
 
-ndvi_oct[NDVI>=251]<-NA
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+ndvi_OCT <- crop(ndvi_oct, polygon)
+
+ndvi_oct [ndvi_oct[]>=253] <- NA
 
 
 
