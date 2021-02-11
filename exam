@@ -84,7 +84,7 @@ library(tidyr)
 library(ggplot2)
 
 # temperature data
-temp_dec <- nc_open("")
+temp_dec <- nc_open("adaptor.marsdev.internal-1613068850.2475939-10559-18-3bb435fb-a484-491b-95a3-9d3bd0501bad.nc")
 polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 temp_dec <- crop(oct, polygon)
@@ -105,4 +105,5 @@ MAX[lon_index, lat_index, time_index]
 
 library(ggmap)
 library(viridis)
+
 library(weathermetrics)
