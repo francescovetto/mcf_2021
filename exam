@@ -5,6 +5,7 @@ library(raster)
 library(sf)
 library(rgdal)
 library(ggplot2)
+library(rasterVis)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
@@ -65,17 +66,12 @@ ndvi_jan [ndvi_jan[]>=0.935] <- NA
 ndvi_feb [ndvi_feb[]>=0.935] <- NA
 ndvi_feb19 [ndvi_feb19[]>=0.935] <- NA
 
-cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
-par(mfrow=c(2,2))
-plot(ndvi_oct, col=cl)
-plot(ndvi_nov, col=cl)
-plot(ndvi_dec, col=cl)
-plot(ndvi_jan, col=cl)
+plot(ndvi_feb19, xlab="longitude", ylab="latitude", main= "NDVI february '19")
+plot(ndvi_feb, xlab="longitude", ylab="latitude", main= "NDVI february '20")
 
 # i will do a comparison between the ndvi in feb '19 and feb '20
 ndvi_diff <- ndvi_feb19 - ndvi_feb
 ndvi_diff
-
 levelplot(ndvi_diff)
 # export picture 
 
