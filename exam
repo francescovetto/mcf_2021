@@ -75,6 +75,23 @@ ndvi_diff
 levelplot(ndvi_diff)
 # export picture 
 
+#### temperature as cause of the bushfires
+library(ncdf4.helpers)
+library(PCICt)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
+# temperature data of the period 21/12 31/12 december 2019
+temp_dec <- nc_open("c_gls_LST10-DC_201912210000_GLOBE_GEO_V1.2.1.nc")
+polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+temp_dec <- crop(oct, polygon)
 
+lon <- ncvar_get(temp_dec, varid = "lon")
+lat <- ncvar_get(temp_dec, varid = "lat")
 
+tas_time <- nc.get.time.series(climate_output, v = "tas",
+                               time.dim.name = "time")
+tas_time[c(1:3, length(tas_time) - 2:0)]
