@@ -3,10 +3,8 @@
 # R code for plotting the relationship among ecoogical variables
 
 # install.packages is used to install packages
-install.packages("sp")
-library(sp) 
-
-# without breakets beacuse we are already into R
+install.packages("sp") # always put brackets "" when you recall something outside R to bring it inside
+library(sp) # without breakets beacuse we are already into R
 
 # data is used to recall datsets
 data(meuse)
