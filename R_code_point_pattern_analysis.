@@ -8,7 +8,7 @@ library(spatstat)
 # SETWD MAC
 # setwd("/Users/francescovettore/Desktop/lab")
 
-covid <- read.table("covid_agg.csv", header = TRUE) 
+covid <- read.table("covid_agg.csv", header = TRUE) #header means that the table already has an header so the first line is not data
 covid
 
 # now let's see the density of the covid data 
@@ -32,7 +32,7 @@ plot(density_map, col = cl)
 points(covid_planar)
 
 # putting the countries on top of the map
-install.packages("rgdal")
+install.packages("rgdal") 
 
 library (rgdal)
 coastlines <- readOGR("ne_10m_coastline.shp")
