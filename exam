@@ -103,6 +103,5 @@ dec19 <- raster("c_gls_LST10-DC_201912210000_GLOBE_GEO_V1.2.1.nc", varname="MAX"
 polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 HT_dec19 <- crop(dec19, polygon)
-
-
+hist
 
