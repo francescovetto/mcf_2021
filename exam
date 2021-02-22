@@ -23,7 +23,7 @@ ggplot() +
   coord_sf()
 # export the picture 
 
-##### let's see differences in the forest cover over the period from 10/2019 to 01/2020
+########## let's see differences in the forest cover before and after the bushfire season from 10/2019 to 01/2020
 
 # import all the raster about forest cover from october to january
 oct <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
@@ -49,40 +49,36 @@ plot(fcover_dec, main="fcover_dec", col=cl)
 plot(fcover_jan, main="fcover_jan", col=cl)
 # export picture 
 
-#### let's see how NDVI 
+########## let's see how NDVI changed in 1 year 
 
-# import NDVI data, from october 19 to february 20, then also february 19 to make a comparison between feb 19- feb 20 
-ndvi_oct <- raster("c_gls_NDVI300-NDVI_201910010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
-ndvi_nov <- raster("c_gls_NDVI300-NDVI_201911010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
-ndvi_dec <- raster("c_gls_NDVI300-NDVI_201912010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
-ndvi_jan <- raster("c_gls_NDVI300-NDVI_202001010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
+# import NDVI data, related to february 2019 and february 2020 to make a comparison with 300m resolution
+# NDVI is strongly correlated to the state of vegetation, i don't think it's a great idea to make a comparison from different periods over the year,
+# that's why i will compare data from february 2019 and february 2020, not october 2019 and february 2020
+
 ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
 ndvi_feb19 <- raster("c_gls_NDVI300-NDVI_201902010000_CUSTOM_PROBAV_V1.0.1.tiff")
 
 # over 253 there are unuseful flag values, they must be eliminated
-ndvi_oct [ndvi_oct[]>=253] <- NA
-ndvi_nov [ndvi_nov[]>=253] <- NA
-ndvi_dec [ndvi_dec[]>=253] <- NA
-ndvi_jan [ndvi_jan[]>=253] <- NA
 ndvi_feb [ndvi_feb[]>=253] <- NA
 ndvi_feb19 [ndvi_feb19[]>=253] <- NA
-ndvi_oct [ndvi_oct[]>=0.935] <- NA
-ndvi_nov [ndvi_nov[]>=0.935] <- NA
-ndvi_dec [ndvi_dec[]>=0.935] <- NA
-ndvi_jan [ndvi_jan[]>=0.935] <- NA
+
 ndvi_feb [ndvi_feb[]>=0.935] <- NA
 ndvi_feb19 [ndvi_feb19[]>=0.935] <- NA
 
+# plotting
 plot(ndvi_feb19, xlab="longitude", ylab="latitude", main= "NDVI february '19")
 plot(ndvi_feb, xlab="longitude", ylab="latitude", main= "NDVI february '20")
 
-# i will do a comparison between the ndvi in feb '19 and feb '20
+# Creating a colour palette that highlights negative differences (biomass losses)
+cl <- colorRampPalette(c('red','white','grey'))(100)
+
+# i will try to see if there are differences and plot it
 ndvi_diff <- ndvi_feb19 - ndvi_feb
-ndvi_diff
-levelplot(ndvi_diff)
+
+plot(ndvi_diff, col=cl)
 # export picture 
 
-#### temperature as the main cause of the bushfires
+######### temperature as the main cause of the bushfires
 
 library(ncdf4.helpers)
 library(PCICt)
