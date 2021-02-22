@@ -42,10 +42,10 @@ fcover_jan <- crop(jan, polygon)
 # plot the 4 raster with the function par, with color given by cl
 cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
 par(mfrow=c(2,2))
-plot(fcover_oct, main="fcover_oct", col=cl)
-plot(fcover_nov, main="fcover_nov", col=cl)
-plot(fcover_dec, main="fcover_dec", col=cl)
-plot(fcover_jan, main="fcover_jan", col=cl)
+plot(fcover_oct, main="FOREST COVER OCT 19", col=cl)
+plot(fcover_nov, main="FOREST COVER NOV 19", col=cl)
+plot(fcover_dec, main="FOREST COVER DEC 19", col=cl)
+plot(fcover_jan, main="FOREST COVER JAN 20", col=cl)
 # export picture 
 
 ########## let's see how NDVI changed in 1 year 
