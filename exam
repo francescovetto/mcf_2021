@@ -2,10 +2,9 @@
 
 library(ncdf4)
 library(raster)
-library(sf)
-library(rgdal)
 library(ggplot2)
 library(rasterVis)
+library(sf)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
@@ -32,8 +31,8 @@ dec <- raster("c_gls_FCOVER_201912240000_GLOBE_PROBAV_V1.5.1.nc")
 jan <- raster("c_gls_FCOVER_202001240000_GLOBE_PROBAV_V1.5.1.nc")
 
 # cropping images to australia extent, creating a box as a Spatial object and crop the raster by the box.
-# australia (112.9072, 158.9603, -54.7538, -10.1356)(xmin, xmax, ymin, ymax)
-polygon <- as(extent(112.9072, 158.9603, -54.7538, -10.1356), 'SpatialPolygons')
+# australia (112.3813, 154.3903, -44.3128, -10.3248)(xmin, xmax, ymin, ymax)
+polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 fcover_oct <- crop(oct, polygon)
 fcover_nov <- crop(nov, polygon)
@@ -55,36 +54,34 @@ plot(fcover_jan, main="fcover_jan", col=cl)
 # NDVI is strongly correlated to the state of vegetation, i don't think it's a great idea to make a comparison from different periods over the year,
 # that's why i will compare data from february 2019 and february 2020, not october 2019 and february 2020
 
-ndvi_feb <- raster("c_gls_NDVI300-NDVI_202002010000_CUSTOM_PROBAV_V1.0.1 17.01.02.tiff")
-ndvi_feb19 <- raster("c_gls_NDVI300-NDVI_201902010000_CUSTOM_PROBAV_V1.0.1.tiff")
+feb19 <- raster("c_gls_NDVI300_201902010000_GLOBE_PROBAV_V1.0.1.nc")
+feb20 <- raster("c_gls_NDVI300_202002010000_GLOBE_PROBAV_V1.0.1.nc")
 
-# over 253 there are unuseful flag values, they must be eliminated
-ndvi_feb [ndvi_feb[]>=253] <- NA
-ndvi_feb19 [ndvi_feb19[]>=253] <- NA
-
-ndvi_feb [ndvi_feb[]>=0.935] <- NA
-ndvi_feb19 [ndvi_feb19[]>=0.935] <- NA
-
-# plotting
-plot(ndvi_feb19, xlab="longitude", ylab="latitude", main= "NDVI february '19")
-plot(ndvi_feb, xlab="longitude", ylab="latitude", main= "NDVI february '20")
-
-# Creating a colour palette that highlights negative differences (biomass losses)
-cl <- colorRampPalette(c('red','white','grey'))(100)
+# crop extent to australia 
+polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+feb19_aus <- crop(feb19, polygon)
+feb20_aus <- crop(feb20, polygon)
 
 # i will try to see if there are differences and plot it
-ndvi_diff <- ndvi_feb19 - ndvi_feb
-
+# Creating a colour palette that highlights negative differences (biomass losses)
+cl <- colorRampPalette(c('red','white','grey'))(100)
+ndvi_diff <- feb19_aus - feb20_aus
 plot(ndvi_diff, col=cl)
 # export picture 
 
+# over 253 there are unuseful flag values, they must be eliminated
+feb19_aus [feb19_aus[]>=253] <- NA
+feb19_aus [feb19_aus[]>=0.935] <- NA
+feb20_aus [feb20_aus[]>=253] <- NA
+feb20_aus [feb20_aus[]>=0.935] <- NA
+
+# plotting
+plot(feb19_aus, xlab="longitude", ylab="latitude", main= "NDVI february '19")
+plot(feb20_aus, xlab="longitude", ylab="latitude", main= "NDVI february '20")
+
+
 ######### temperature as the main cause of the bushfires
 
-library(ncdf4.helpers)
-library(PCICt)
-library(readr)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
 
-# temperature data
+
