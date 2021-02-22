@@ -3,6 +3,9 @@ install.packages("rasterdiv")
 library(rasterdiv)
 library(raster)
 
+# set the working directory 
+setwd("/Users/francescovettore/Desktop/lab")
+
 data(copNDVI)
 plot(conNDVI)
 
