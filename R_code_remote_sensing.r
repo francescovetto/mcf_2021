@@ -31,8 +31,9 @@ plot(p224r63_2011$B3_sre, col=clr)
 clnir <- colorRampPalette(c('red','orange','yellow'))(100)
 plot(p224r63_2011$B4_sre, col=clnir)
 
-plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") #stretch means we stretch colours in the linear method in order to see better the image
 
-# how to use band number 4, put the nir infra red in the red component of the rgb, 
-# all the vegetation are now in red, some blank points refers to human infrastructure 
+# how to use band number 4, put the nir infra red in the red component of the rgb, NIR is highly reflected by leaves, 
+# all the vegetation are now in red, some blank points refers to human infrastructure
+
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
