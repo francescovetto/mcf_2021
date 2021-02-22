@@ -82,6 +82,19 @@ plot(feb20_aus, xlab="longitude", ylab="latitude", main= "NDVI february '20")
 
 
 ######### temperature as the main cause of the bushfires
+# i'm going to compare the LST of a 10 day cycle in december 2018 and one in december 2019, when have been recorded the highest temperatures 
+# ever in Australia 
+
+dec19 <- raster("c_gls_LST10-DC_201912210000_GLOBE_GEO_V1.2.1.nc")
+dec18 <- raster("c_gls_LST10-DC_201812210000_GLOBE_GEO_V1.2.1.nc")
+
+polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+lst_dec19 <- crop(dec19, polygon)
+lst_dec18 <- crop(dec18, polygon)
+
+lst_diff <- lst_dec19 - lst_dec18
+plot(lst_diff, col=cl)
 
 
 
