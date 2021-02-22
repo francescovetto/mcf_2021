@@ -6,22 +6,23 @@ library(raster)
 # set the working directory 
 setwd("/Users/francescovettore/Desktop/lab")
 
-data(copNDVI)
+data(copNDVI) # load data already in the package
 plot(conNDVI)
 
-# to remove the blue, removing the higher values
+# the values of the map are from 0 to 255 (they are 256 values because it is a 8 bit image so it has 2^8 values)
+# to remove the blue, removing the higher values,  values 253 254 255 should be NOT ASSIGNED 
 copNDVI <- reclassify(copNDVI, cbind(253:255, NA))
 plot(copNDVI)
 
 # a long term picture is the mean of images of plenty of years 
 
 # use rastervis for showing the level plot
-# A level plot is a type of graph that is used to display a surface 
-# in two rather than three dimensions
+# A level plot is a type of graph that is used to display a surface in two rather than three dimensions
 install.packages("rasterVis")
 library(rastervis)
 levelplot(copNDVI)
 
+# we can play with colors 
 clymin <- colorRampPalette(c('yellow', 'red', 'blue'))(100)
 plot(copNDVI, col=clymin)
 
@@ -68,8 +69,9 @@ plotRGB(defor1, r=1, g=2, b=3, stretch="Lin")
 plotRGB(defor2, r=1, g=2, b=3, stretch="Lin")
 
 dev.off()
-# take the image defor1, link the image through the $ to the image of the NIR 
-# and minus the band of the red channel 
+# take the image defor1, link the image through the $ to the image of the NIR and minus the band of the red channel 
+# We calculate the DVI (biomass index) value defined ad (NIR - RED). High DVI means lot of vegetation and/or not stressed (high NIR and low RED). 
+# Lower values means less vegetation or stressed. 
 # doing that we calculate the DVI for the 1st image, period
 
 dvi1 <- defor1$defor1_.jpg.1 - defor1$defor1_.jpg.2
