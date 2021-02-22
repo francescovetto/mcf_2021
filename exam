@@ -42,10 +42,10 @@ fcover_jan <- crop(jan, polygon)
 # plot the 4 raster with the function par, with color given by cl
 cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
 par(mfrow=c(2,2))
-plot(fcover_oct, main="FOREST COVER OCT 19", col=cl)
-plot(fcover_nov, main="FOREST COVER NOV 19", col=cl)
-plot(fcover_dec, main="FOREST COVER DEC 19", col=cl)
-plot(fcover_jan, main="FOREST COVER JAN 20", col=cl)
+plot(fcover_oct, main="FOREST COVER OCT 19", col=cl, xlab="longitude", ylab="latitude")
+plot(fcover_nov, main="FOREST COVER NOV 19", col=cl, xlab="longitude", ylab="latitude")
+plot(fcover_dec, main="FOREST COVER DEC 19", col=cl, xlab="longitude", ylab="latitude")
+plot(fcover_jan, main="FOREST COVER JAN 20", col=cl, xlab="longitude", ylab="latitude")
 # export picture 
 
 ########## let's see how NDVI changed in 1 year 
@@ -67,7 +67,7 @@ feb20_aus <- crop(feb20, polygon)
 # Creating a colour palette that highlights negative differences (biomass losses)
 cl <- colorRampPalette(c('red','white','grey'))(100)
 ndvi_diff <- feb19_aus - feb20_aus
-plot(ndvi_diff, col=cl)
+plot(ndvi_diff, col=cl, main="NDVI difference february '19-'20", xlab="longitude", ylab="latitude")
 # export picture 
 
 # over 253 there are unuseful flag values, they must be eliminated
@@ -96,7 +96,13 @@ lst_dec18 <- crop(dec18, polygon)
 
 cl <- colorRampPalette(c('white','grey','red'))(100)
 lst_diff <- lst_dec19 - lst_dec18
-plot(lst_diff, col=cl)
+plot(lst_diff, col=cl, main="Difference in K temperature dec'18 vs dec'19", xlab="longitude", ylab="latitude")
+
+### look at the highest temperature recorded in AUS in december 2019
+dec19 <- raster("c_gls_LST10-DC_201912210000_GLOBE_GEO_V1.2.1.nc", varname="MAX")
+polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
+crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
+HT_dec19 <- crop(dec19, polygon)
 
 
 
