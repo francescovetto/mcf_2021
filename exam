@@ -19,7 +19,9 @@ fire
 ggplot() + 
   geom_sf(data = fire, size = 0.01, color = "red") + 
   ggtitle("fire location") + 
-  coord_sf()
+  xlab("Longitude") +
+  ylab("Latitude") +
+  coord_sf(xlim = c(112, 155), ylim = c(-44, -10), expand = FALSE)
 # export the picture 
 
 ########## let's see differences in the forest cover before and after the bushfire season from 10/2019 to 01/2020
@@ -66,7 +68,7 @@ feb20_aus <- crop(feb20, polygon)
 # i will try to see if there are differences and plot it
 # Creating a colour palette that highlights negative differences (biomass losses)
 cl <- colorRampPalette(c('red','white','grey'))(100)
-ndvi_diff <- feb19_aus - feb20_aus
+ndvi_diff <- feb20_aus - feb19_aus
 plot(ndvi_diff, col=cl, main="NDVI difference february '19-'20", xlab="longitude", ylab="latitude")
 # export picture 
 
