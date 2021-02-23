@@ -52,6 +52,7 @@ plot(fcover_jan, main="FCOVER JAN 20", col=cl, xlab="longitude", ylab="latitude"
 
 # fraction of veg cover changes over the bushfire season
 fcover_diff <- fcover_jan - fcover_oct 
+cl <- colorRampPalette(c('darkgreen','grey','white'))(100)
 plot(fcover_diff, col=cl, main="FCOVER difference oct'19-jan'20", xlab="longitude", ylab="latitude")
 ########## let's see how NDVI changed in 1 year 
 
@@ -122,8 +123,11 @@ plot(temp_dec, col=cl, xlab="longitude", ylab="latitude", main= "LST anomalies d
 ###### final comparison
 par(mfrow=c(1,3))
 ## fcover changes over the bushfires season
+cl <- colorRampPalette(c('red','grey','white'))(100)
 plot(fcover_diff, col=cl, main="FCOVER difference oct'19-jan'20", xlab="longitude", ylab="latitude")
-## lst anomaly registered in december 
+## lst anomaly registered in december
+cl <- colorRampPalette(c('white','grey','red'))(100)
 plot(temp_dec, col=cl, xlab="longitude", ylab="latitude", main= "LST anomalies december 2019")
 ## ndvi changes over the year 2019-2020
+cl <- colorRampPalette(c('red','grey','white'))(100)
 plot(ndvi_diff, col=cl, main="NDVI difference february '19-'20", xlab="longitude", ylab="latitude")
