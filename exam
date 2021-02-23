@@ -24,36 +24,31 @@ ggplot() +
   coord_sf(xlim = c(112, 155), ylim = c(-44, -10), expand = FALSE)
 # export the picture 
 
-########## let's see differences in the forest cover before and after the bushfire season from 10/2019 to 01/2020
+########## let's see differences in the forest cover before and after the bushfire season 02/2019-02/2020
 
-# import all the raster about forest cover from october to january
-oct <- raster("c_gls_FCOVER_201910240000_GLOBE_PROBAV_V1.5.1.nc")
-nov <- raster("c_gls_FCOVER_201911230000_GLOBE_PROBAV_V1.5.1.nc")
-dec <- raster("c_gls_FCOVER_201912240000_GLOBE_PROBAV_V1.5.1.nc")
-jan <- raster("c_gls_FCOVER_202001240000_GLOBE_PROBAV_V1.5.1.nc")
+# import all the raster about forest cover
+feb_19 <- raster("")
+feb_20 <- raster("")
 
 # cropping images to australia extent, creating a box as a Spatial object and crop the raster by the box.
 # australia (112.3813, 154.3903, -44.3128, -10.3248)(xmin, xmax, ymin, ymax)
 polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
-fcover_oct <- crop(oct, polygon)
-fcover_nov <- crop(nov, polygon)
-fcover_dec <- crop(dec, polygon)
-fcover_jan <- crop(jan, polygon)
+fcover_19 <- crop(feb_19, polygon)
+fcover_20 <- crop(feb_20, polygon)
 
 # plot the 4 raster with the function par, with color given by cl
 cl <- colorRampPalette(c('azure2','darkolivegreen','darkgreen'))(100)
-par(mfrow=c(2,2))
-plot(fcover_oct, main="FCOVER OCT 19", col=cl, xlab="longitude", ylab="latitude")
-plot(fcover_nov, main="FCOVER NOV 19", col=cl, xlab="longitude", ylab="latitude")
-plot(fcover_dec, main="FCOVER DEC 19", col=cl, xlab="longitude", ylab="latitude")
-plot(fcover_jan, main="FCOVER JAN 20", col=cl, xlab="longitude", ylab="latitude")
+par(mfrow=c(1,2))
+plot(fcover_19, main="FCOVER FEB 19", col=cl, xlab="longitude", ylab="latitude")
+plot(fcover_20, main="FCOVER FEB 20", col=cl, xlab="longitude", ylab="latitude")
 # export picture 
 
 # fraction of veg cover changes over the bushfire season
-fcover_diff <- fcover_jan - fcover_oct 
+fcover_diff <- fcover_20 - fcover_19
 cl <- colorRampPalette(c('darkgreen','grey','white'))(100)
-plot(fcover_diff, col=cl, main="FCOVER difference oct'19-jan'20", xlab="longitude", ylab="latitude")
+plot(fcover_diff, col=cl, main="FCOVER diff 2019-2020", xlab="longitude", ylab="latitude")
+
 ########## let's see how NDVI changed in 1 year 
 
 # import NDVI data, related to february 2019 and february 2020 to make a comparison with 300m resolution
@@ -121,7 +116,10 @@ cl <- colorRampPalette(c('white','grey','red'))(100)
 plot(temp_dec, col=cl, xlab="longitude", ylab="latitude", main= "LST anomalies december 2019")
 
 ###### final comparison
-par(mfrow=c(1,3))
+par(mfrow=c(2,2))
+## LST differences december 2019-december 2018
+cl <- colorRampPalette(c('white','grey','red'))(100)
+plot(lst_diff, col=cl, main="Difference in K temperature dec'18 vs dec'19", xlab="longitude", ylab="latitude")
 ## fcover changes over the bushfires season
 cl <- colorRampPalette(c('red','grey','white'))(100)
 plot(fcover_diff, col=cl, main="FCOVER difference oct'19-jan'20", xlab="longitude", ylab="latitude")
