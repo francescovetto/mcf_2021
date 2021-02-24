@@ -1,4 +1,4 @@
-####
+#### install.packages()
 
 library(ncdf4)
 library(raster)
@@ -8,7 +8,7 @@ library(sf)
 
 setwd("/Users/francescovettore/Desktop/lab.exam")
 
-# ANALYSIS OF THE 2019-2020 BUSHFIRES SEASON IN AUSTRALIA, THROUGH ANALYSIS OF NDVI-FOREST COVER AND LAND SURFACE TEMPERATURE
+# ANALYSIS OF THE 2019-2020 BUSHFIRES SEASON IN AUSTRALIA, THROUGH ANALYSIS OF NDVI-FRACTION OF VEGETATION COVER AND LAND SURFACE TEMPERATURE
 # fire location, FIRMS data suomi-viirs-c2 downloaded from the NASA website 
 # NASA FIRMS distributes Near Real-Time (NRT) active fire data within 3 hours of satellite observation from VIIRS
 fire <- st_read("fire_archive_V1_177480.shp")
@@ -44,12 +44,12 @@ plot(fcover_19, main="FCOVER FEB 19", col=cl, xlab="longitude", ylab="latitude")
 plot(fcover_20, main="FCOVER FEB 20", col=cl, xlab="longitude", ylab="latitude")
 # export picture 
 
-# fraction of veg cover changes over the bushfire season
+# fraction of veg cover changes 
 fcover_diff <- fcover_20 - fcover_19
 cl <- colorRampPalette(c('darkgreen','grey','white'))(100)
 plot(fcover_diff, col=cl, main="FCOVER diff 2019-2020", xlab="longitude", ylab="latitude")
 
-########## let's see how NDVI changed in 1 year 
+########## let's see how NDVI changed between 2019 and 2020
 
 # import NDVI data, related to february 2019 and february 2020 to make a comparison with 300m resolution
 # NDVI is strongly correlated to the state of vegetation, i don't think it's a great idea to make a comparison from different periods over the year,
@@ -99,14 +99,14 @@ cl <- colorRampPalette(c('white','grey','red'))(100)
 lst_diff <- lst_dec19 - lst_dec18
 plot(lst_diff, col=cl, main="Difference in K temperature dec'18 vs dec'19", xlab="longitude", ylab="latitude")
 
-### look at the highest temperature recorded in AUS in december 2019
+### look at the highest LST in december 2019
 dec19 <- raster("c_gls_LST10-DC_201912210000_GLOBE_GEO_V1.2.1.nc", varname="MAX")
 polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 HT_dec19 <- crop(dec19, polygon)
 hist(HT_dec19)
 
-## land surface temperature anomaly 
+## land surface temperature anomaly, file downloaded from nasa
 temp_ano <- raster("MOD_LSTAD_M_2019-12-01_rgb_3600x1800.TIFF")
 polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons') # change extent
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
