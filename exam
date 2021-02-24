@@ -27,8 +27,8 @@ ggplot() +
 ########## let's see differences in the forest cover before and after the bushfire season 02/2019-02/2020
 
 # import all the raster about forest cover
-feb_19 <- raster("")
-feb_20 <- raster("")
+feb_19 <- raster("c_gls_FCOVER_201902130000_GLOBE_PROBAV_V1.5.1.nc")
+feb_20 <- raster("c_gls_FCOVER_202002130000_GLOBE_PROBAV_V1.5.1.nc")
 
 # cropping images to australia extent, creating a box as a Spatial object and crop the raster by the box.
 # australia (112.3813, 154.3903, -44.3128, -10.3248)(xmin, xmax, ymin, ymax)
@@ -120,9 +120,9 @@ par(mfrow=c(2,2))
 ## LST differences december 2019-december 2018
 cl <- colorRampPalette(c('white','grey','red'))(100)
 plot(lst_diff, col=cl, main="Difference in K temperature dec'18 vs dec'19", xlab="longitude", ylab="latitude")
-## fcover changes over the bushfires season
+## fcover changes before and after the '19-'20 bushfires season
 cl <- colorRampPalette(c('red','grey','white'))(100)
-plot(fcover_diff, col=cl, main="FCOVER difference oct'19-jan'20", xlab="longitude", ylab="latitude")
+plot(fcover_diff, col=cl, main="FCOVER difference february '19-'20", xlab="longitude", ylab="latitude")
 ## lst anomaly registered in december
 cl <- colorRampPalette(c('white','grey','red'))(100)
 plot(temp_dec, col=cl, xlab="longitude", ylab="latitude", main= "LST anomalies december 2019")
