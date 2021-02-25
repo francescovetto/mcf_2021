@@ -103,18 +103,20 @@ points(leo_ppp)
 ####### interpolation of students data
 
 load("point_pattern_analysis.RData")
-ls()
+ls() #see the list of files inside the Rdata
 head(leo)
 
 library(spatstat)
 attach(leo)
-marks(leo_ppp) <- chlh     ##chlorophil
+marks(leo_ppp) <- chlh     ##chlorophil explaining to R the variables that we want to use 
 
 chlh_map <- Smooth(leo_ppp)
 
 cl <- colorRampPalette(c('yellow', 'orange', 'red', 'green'))(100)
 plot(chlh_map)
 points(leo_ppp)
+#the east side of the map is the sea, so the amount of ch is lower than the west side
+#point in green part: highest production in terms of chlh
 
 # exercise: do the same for chls in the sediment
 
@@ -124,8 +126,7 @@ chls_map <- Smooth(leo_ppp)
 plot(chls_map, col=cl)
 points(leo_ppp)
 
-# multipanel
-
+# function to make multipanel
 par(mfrow=c(1,3))
 
 # first graph 
