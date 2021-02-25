@@ -112,8 +112,7 @@ polygon <- as(extent(112.3813, 154.3903, -44.3128, -10.3248), 'SpatialPolygons')
 crs(polygon) <- "+proj=longlat +datum=WGS84 +no_defs"
 temp_dec <- crop(temp_ano, polygon)
 temp_dec <- reclassify(temp_dec, cbind(255, NA)) # in order to remove oceans
-cl <- colorRampPalette(c('white','grey','red'))(100)
-plot(temp_dec, col=cl, xlab="longitude", ylab="latitude", main= "LST anomalies december 2019")
+levelplot(temp_dec)
 
 ###### final comparison
 par(mfrow=c(2,2))
